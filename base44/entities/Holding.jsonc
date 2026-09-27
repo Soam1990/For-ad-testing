@@ -1,0 +1,145 @@
+{
+  "name": "Holding",
+  "type": "object",
+  "properties": {
+    "site_code": {
+      "type": "string",
+      "title": "Site Code"
+    },
+    "name": {
+      "type": "string",
+      "title": "Name"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "Billboard",
+        "Digital Screen",
+        "Transit"
+      ],
+      "title": "Type"
+    },
+    "city": {
+      "type": "string",
+      "title": "City"
+    },
+    "address": {
+      "type": "string",
+      "title": "Address"
+    },
+    "lat": {
+      "type": "number",
+      "title": "Latitude"
+    },
+    "lng": {
+      "type": "number",
+      "title": "Longitude"
+    },
+    "dimensions": {
+      "type": "string",
+      "title": "Dimensions"
+    },
+    "daily_impressions": {
+      "type": "number",
+      "title": "Daily Impressions"
+    },
+    "description": {
+      "type": "string",
+      "title": "Description"
+    },
+    "image_url": {
+      "type": "string",
+      "title": "Image URL",
+      "format": "uri"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "available",
+        "booked"
+      ],
+      "title": "Status",
+      "default": "available"
+    },
+    "company_id": {
+      "type": "string",
+      "title": "Company ID"
+    },
+    "company_name": {
+      "type": "string",
+      "title": "Company Name"
+    }
+  },
+  "required": [
+    "site_code",
+    "name",
+    "type",
+    "city"
+  ],
+  "rls": {
+    "read": {},
+    "create": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "data.company_id": "{{user.data.company_id}}"
+            },
+            {
+              "user_condition": {
+                "role": "company_admin"
+              }
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "data.company_id": "{{user.data.company_id}}"
+            },
+            {
+              "user_condition": {
+                "role": "company_admin"
+              }
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "delete": {
+      "$or": [
+        {
+          "$and": [
+            {
+              "data.company_id": "{{user.data.company_id}}"
+            },
+            {
+              "user_condition": {
+                "role": "company_admin"
+              }
+            }
+          ]
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    }
+  }
+}

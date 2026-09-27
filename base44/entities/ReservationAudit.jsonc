@@ -1,0 +1,70 @@
+{
+  "name": "ReservationAudit",
+  "type": "object",
+  "properties": {
+    "reservation_id": {
+      "type": "string",
+      "title": "Reservation ID"
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "created",
+        "approved",
+        "rejected",
+        "cancelled"
+      ],
+      "title": "Action"
+    },
+    "admin_user_id": {
+      "type": "string",
+      "title": "Admin User ID"
+    },
+    "admin_name": {
+      "type": "string",
+      "title": "Admin Name"
+    },
+    "previous_status": {
+      "type": "string",
+      "title": "Previous Status"
+    },
+    "new_status": {
+      "type": "string",
+      "title": "New Status"
+    },
+    "reason": {
+      "type": "string",
+      "title": "Reason"
+    },
+    "action_date": {
+      "type": "string",
+      "title": "Action Date/Time",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "reservation_id",
+    "action",
+    "admin_user_id",
+    "new_status",
+    "action_date"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {},
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

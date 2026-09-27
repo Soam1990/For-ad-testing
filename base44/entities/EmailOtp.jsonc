@@ -1,0 +1,57 @@
+{
+  "name": "EmailOtp",
+  "type": "object",
+  "properties": {
+    "email": {
+      "type": "string",
+      "format": "email",
+      "title": "Email"
+    },
+    "code": {
+      "type": "string",
+      "title": "Code"
+    },
+    "purpose": {
+      "type": "string",
+      "title": "Purpose",
+      "default": "booking"
+    },
+    "verified": {
+      "type": "boolean",
+      "title": "Verified",
+      "default": false
+    },
+    "expires_at": {
+      "type": "string",
+      "format": "date-time",
+      "title": "Expires At"
+    }
+  },
+  "required": [
+    "email",
+    "code",
+    "expires_at"
+  ],
+  "rls": {
+    "read": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "create": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}

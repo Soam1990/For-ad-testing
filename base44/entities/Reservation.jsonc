@@ -1,0 +1,152 @@
+{
+  "name": "Reservation",
+  "type": "object",
+  "properties": {
+    "holding_id": {
+      "type": "string",
+      "title": "Billboard ID"
+    },
+    "billboard_name": {
+      "type": "string",
+      "title": "Billboard Name"
+    },
+    "reservation_date": {
+      "type": "string",
+      "format": "date",
+      "title": "Reservation Date"
+    },
+    "start_time": {
+      "type": "string",
+      "title": "Start Time",
+      "description": "24-hour format HH:MM"
+    },
+    "end_time": {
+      "type": "string",
+      "title": "End Time",
+      "description": "24-hour format HH:MM"
+    },
+    "company_id": {
+      "type": "string",
+      "title": "Company ID"
+    },
+    "company_name": {
+      "type": "string",
+      "title": "Company Name"
+    },
+    "user_id": {
+      "type": "string",
+      "title": "User ID"
+    },
+    "user_name": {
+      "type": "string",
+      "title": "User Name"
+    },
+    "requester_company": {
+      "type": "string",
+      "title": "Requester's Company"
+    },
+    "requester_email": {
+      "type": "string",
+      "format": "email",
+      "title": "Requester's Email"
+    },
+    "requester_phone": {
+      "type": "string",
+      "title": "Requester's Phone"
+    },
+    "request_id": {
+      "type": "string",
+      "title": "Request ID",
+      "description": "Shared across all dates/times submitted in a single booking request so they appear as one request to the admin."
+    },
+    "source": {
+      "type": "string",
+      "enum": [
+        "portal",
+        "public_link"
+      ],
+      "title": "Source",
+      "default": "portal"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "confirmed",
+        "rejected",
+        "cancelled"
+      ],
+      "title": "Status",
+      "default": "pending"
+    },
+    "verified": {
+      "type": "boolean",
+      "title": "Email Verified",
+      "default": false
+    },
+    "rejection_reason": {
+      "type": "string",
+      "title": "Rejection Reason"
+    },
+    "decided_by_id": {
+      "type": "string",
+      "title": "Decided By User ID"
+    },
+    "decided_by_name": {
+      "type": "string",
+      "title": "Decided By Name"
+    },
+    "decided_at": {
+      "type": "string",
+      "title": "Decided At",
+      "format": "date-time"
+    }
+  },
+  "required": [
+    "holding_id",
+    "billboard_name",
+    "reservation_date",
+    "start_time",
+    "end_time",
+    "company_id",
+    "company_name",
+    "user_id",
+    "user_name"
+  ],
+  "rls": {
+    "read": {
+      "$or": [
+        {
+          "data.company_id": "{{user.data.company_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "create": {
+      "$or": [
+        {
+          "data.company_id": "{{user.data.company_id}}"
+        },
+        {
+          "user_condition": {
+            "role": "admin"
+          }
+        }
+      ]
+    },
+    "update": {
+      "user_condition": {
+        "role": "admin"
+      }
+    },
+    "delete": {
+      "user_condition": {
+        "role": "admin"
+      }
+    }
+  }
+}
